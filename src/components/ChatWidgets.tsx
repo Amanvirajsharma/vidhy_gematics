@@ -263,6 +263,10 @@ export function ChatWidgets() {
               <div className="chatbot-header-text">
                 <p>Vidya Assistant</p>
                 <span>Quick help · Survey engineering</span>
+                <strong className="chatbot-status">
+                  <span aria-hidden className="chatbot-status-dot" />
+                  Online now
+                </strong>
               </div>
               <button
                 type="button"
@@ -301,7 +305,7 @@ export function ChatWidgets() {
                   type="text"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  placeholder="Type your question…"
+                  placeholder="Ask about services, quotation, contact..."
                   aria-label="Chat message"
                 />
                 <button type="submit" disabled={!input.trim()} aria-label="Send message">

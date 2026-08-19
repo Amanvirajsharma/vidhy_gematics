@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Hero } from '../components/Hero'
+import { CylinderGallery } from '../components/CylinderGallery'
 import { Spotlight } from '../components/Spotlight'
 import { SectorsStrip } from '../components/SectorsStrip'
 import { Stats } from '../components/Stats'
@@ -15,6 +16,7 @@ export function HomePage() {
   return (
     <div className="home-page">
       <Hero />
+      <CylinderGallery />
       <Spotlight />
       <SectorsStrip />
 

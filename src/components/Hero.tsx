@@ -100,7 +100,7 @@ export function Hero() {
       </motion.div>
 
       <motion.a
-        href="#home-spotlight"
+        href="#work-cylinder"
         className="hero-scroll"
         initial={reduce ? false : { opacity: 0 }}
         animate={{ opacity: 1 }}
