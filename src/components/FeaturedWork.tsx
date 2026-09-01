@@ -3,11 +3,24 @@ import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { services } from '../data/content'
 import { siteImages } from '../data/siteImages'
+import { Img } from './Img'
 
 const featured = [
-  { service: services[0], image: siteImages.featured[0], tab: 'Land Survey' },
-  { service: services[3], image: siteImages.featured[1], tab: 'Drone Mapping' },
-  { service: services[6], image: siteImages.featured[2], tab: 'Track Survey' },
+  {
+    service: services.find((s) => s.title === 'Land Surveying and Mapping')!,
+    image: siteImages.featured[0],
+    tab: 'Land Survey',
+  },
+  {
+    service: services.find((s) => s.title === 'Aerial / Drone Mapping')!,
+    image: siteImages.featured[1],
+    tab: 'Drone Mapping',
+  },
+  {
+    service: services.find((s) => s.title === 'Track Surveying')!,
+    image: siteImages.featured[2],
+    tab: 'Track Survey',
+  },
 ]
 
 const ease = [0.22, 1, 0.36, 1] as const
@@ -58,7 +71,11 @@ export function FeaturedWork() {
               animate={{ clipPath: 'inset(0% 0% 0% 0%)' }}
               transition={{ duration: 0.9, ease }}
             >
-              <img src={current.image.src} alt={current.image.alt} />
+              <Img
+                src={current.image.src}
+                alt={current.image.alt}
+                sizes="(min-width: 900px) 55vw, 100vw"
+              />
             </motion.div>
             <div className="featured-copy">
               <h3>{current.service.title}</h3>

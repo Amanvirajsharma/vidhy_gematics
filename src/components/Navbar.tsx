@@ -14,12 +14,12 @@ const links: NavItem[] = [
   { to: '/', label: 'Home', end: true },
   { to: '/about', label: 'About Us', children: aboutNav },
   { to: '/services', label: 'Services' },
+  { to: '/projects', label: 'Projects' },
   { to: '/clients', label: 'Clients' },
-  { to: '/rental', label: 'Rental' },
   { to: '/contact', label: 'Contact' },
 ]
 
-const aboutPaths = ['/about', ...aboutNav.map((item) => item.to)]
+const childPaths = (link: NavItem) => [link.to, ...(link.children ?? []).map((c) => c.to)]
 
 export function Navbar() {
   const { pathname } = useLocation()
@@ -27,11 +27,11 @@ export function Navbar() {
   const isHome = pathname === '/'
   const [scrolled, setScrolled] = useState(!isHome)
   const [open, setOpen] = useState(false)
-  const [aboutOpen, setAboutOpen] = useState(false)
+  const [openMenu, setOpenMenu] = useState<string | null>(null)
 
   useEffect(() => {
     setOpen(false)
-    setAboutOpen(false)
+    setOpenMenu(null)
   }, [pathname])
 
   useEffect(() => {
@@ -39,10 +39,35 @@ export function Navbar() {
       setScrolled(true)
       return
     }
-    const onScroll = () => setScrolled(window.scrollY > 40)
+
+    // Flip to the light navbar only once the light half of the hero bridge sits
+    // behind it, so the bar never reads as white-on-dark mid-transition.
+    let threshold = 40
+    const measure = () => {
+      const hero = document.querySelector<HTMLElement>('.hero')
+      const bridge = document.querySelector<HTMLElement>('.scroll-bridge')
+      const navHeight =
+        document.querySelector<HTMLElement>('.nav')?.offsetHeight ?? 82
+
+      threshold = hero
+        ? hero.offsetHeight + (bridge?.offsetHeight ?? 0) * 0.6 - navHeight
+        : 40
+    }
+
+    const onScroll = () => setScrolled(window.scrollY > threshold)
+    const onResize = () => {
+      measure()
+      onScroll()
+    }
+
+    measure()
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    window.addEventListener('resize', onResize)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onResize)
+    }
   }, [isHome])
 
   useEffect(() => {
@@ -54,7 +79,7 @@ export function Navbar() {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         setOpen(false)
-        setAboutOpen(false)
+        setOpenMenu(null)
       }
     }
     window.addEventListener('keydown', onKey)
@@ -63,7 +88,6 @@ export function Navbar() {
 
   const close = () => setOpen(false)
   const toggle = () => setOpen((v) => !v)
-  const aboutActive = aboutPaths.includes(pathname)
 
   const mobileMenu =
     typeof document !== 'undefined'
@@ -148,14 +172,14 @@ export function Navbar() {
               link.children ? (
                 <div
                   key={link.to}
-                  className={`nav-drop ${aboutOpen ? 'is-open' : ''}`}
-                  onMouseEnter={() => setAboutOpen(true)}
-                  onMouseLeave={() => setAboutOpen(false)}
+                  className={`nav-drop ${openMenu === link.to ? 'is-open' : ''}`}
+                  onMouseEnter={() => setOpenMenu(link.to)}
+                  onMouseLeave={() => setOpenMenu(null)}
                 >
                   <NavLink
                     to={link.to}
-                    className={`nav-drop-btn ${aboutActive ? 'active' : ''}`}
-                    onClick={() => setAboutOpen(false)}
+                    className={`nav-drop-btn ${childPaths(link).includes(pathname) ? 'active' : ''}`}
+                    onClick={() => setOpenMenu(null)}
                   >
                     {link.label}
                     <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden>
@@ -169,7 +193,7 @@ export function Navbar() {
                       />
                     </svg>
                   </NavLink>
-                  {aboutOpen ? (
+                  {openMenu === link.to ? (
                     <div className="nav-drop-menu">
                       {link.children.map((child) => (
                         <NavLink

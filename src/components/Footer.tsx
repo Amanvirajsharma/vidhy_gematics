@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { site } from '../data/content'
+import { companyProfilePdf, site } from '../data/content'
 
 export function Footer() {
   return (
@@ -27,8 +27,8 @@ export function Footer() {
             <Link to="/our-team">Our Team</Link>
             <Link to="/why-choose-us">Why Choose Us</Link>
             <Link to="/services">Services</Link>
+            <Link to="/projects">Projects</Link>
             <Link to="/clients">Clients</Link>
-            <Link to="/rental">Rental Service</Link>
             <Link to="/quotation">Quotation</Link>
             <Link to="/contact">Contact Us</Link>
           </div>
@@ -52,8 +52,9 @@ export function Footer() {
               <br />
               {site.address.city}
             </p>
-            <h4 className="footer-subhead">Equipment rental</h4>
-            <p>{site.rentalLine}</p>
+            <a href={companyProfilePdf} download className="footer-profile-link">
+              Download company profile (PDF)
+            </a>
           </div>
         </div>
 

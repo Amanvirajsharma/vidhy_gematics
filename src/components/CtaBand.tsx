@@ -33,8 +33,8 @@ export function CtaBand({ to = '/quotation', label = 'Request quotation' }: CtaB
           <div>
             <h2>Want to see what services we provide?</h2>
             <p>
-              {site.rentalLine}. Get in touch with {site.shortName} for survey,
-              mapping and rental support.
+              Get in touch with {site.shortName} for survey, mapping and
+              laser-scanning support.
             </p>
           </div>
         </FadeIn>

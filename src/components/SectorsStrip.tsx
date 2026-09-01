@@ -1,13 +1,20 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { FadeIn } from './FadeIn'
-import { services } from '../data/content'
+import { serviceCategories } from '../data/content'
 import { siteImages } from '../data/siteImages'
 
+const sectorImages = [
+  siteImages.services[1],
+  siteImages.services[0],
+  siteImages.services[2],
+  siteImages.services[4],
+]
+
 export function SectorsStrip() {
-  const cards = services.slice(0, 6).map((service, i) => ({
-    ...service,
-    image: siteImages.services[i],
+  const cards = serviceCategories.map((category, i) => ({
+    title: category.title,
+    image: sectorImages[i] ?? siteImages.services[0],
   }))
 
   return (

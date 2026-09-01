@@ -20,11 +20,12 @@ export function Hero() {
 
   useEffect(() => {
     const id = window.setInterval(() => {
-      setSlide((s) => (s + 1) % heroImages.length)
+      setSlide((s) => (s + 1) % heroSlides.length)
     }, 6500)
     return () => window.clearInterval(id)
   }, [])
 
+  const image = heroImages[slide % heroImages.length]
   const quote = heroSlides[slide].quote
   const [lead, rest] = quote.includes(', ')
     ? [quote.split(', ')[0], quote.split(', ').slice(1).join(', ')]
@@ -36,9 +37,9 @@ export function Hero() {
         <motion.div className="hero-media-pan" style={{ y }}>
           <AnimatePresence mode="sync">
             <motion.img
-              key={heroImages[slide].src}
-              src={heroImages[slide].src}
-              alt={heroImages[slide].alt}
+              key={`${image.src}-${slide}`}
+              src={image.src}
+              alt={image.alt}
               fetchPriority="high"
               className="hero-slide-img"
               initial={reduce ? false : { opacity: 0, scale: 1.08 }}

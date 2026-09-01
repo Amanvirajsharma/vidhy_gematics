@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import type { FormEvent } from 'react'
 import { Link } from 'react-router-dom'
-import { services, site } from '../data/content'
+import { serviceCategories, site } from '../data/content'
 
 type Role = 'bot' | 'user'
 
@@ -17,6 +17,7 @@ type Message = {
   role: Role
   text: string
   links?: ChatLink[]
+  typing?: boolean
 }
 
 const quickOptions = [
@@ -43,9 +44,9 @@ function replyFor(input: string, optionId?: string): Message {
     return {
       id,
       role: 'bot',
-      text: `We provide:\n\n${services
-        .map((s) => `• ${s.title}`)
-        .join('\n')}\n\nEstablished in ${site.established}, we deliver survey engineering across India.`,
+      text: `We provide:\n\n${serviceCategories
+        .map((c) => `• ${c.title}`)
+        .join('\n')}\n\nEstablished in ${site.established}, we deliver engineering and survey solutions across India.`,
       links: [{ label: 'View all services', href: '/services' }],
     }
   }
@@ -116,10 +117,7 @@ function replyFor(input: string, optionId?: string): Message {
       id,
       role: 'bot',
       text: 'Vidya Geomatics employs dedicated full-time professional staff across land survey, laser scanning, drone mapping, tunnel and track surveying.',
-      links: [
-        { label: 'Our team', href: '/our-team' },
-        { label: 'Rental / hire teams', href: '/rental' },
-      ],
+      links: [{ label: 'Our team', href: '/our-team' }],
     }
   }
 
@@ -127,9 +125,9 @@ function replyFor(input: string, optionId?: string): Message {
     return {
       id,
       role: 'bot',
-      text: `${site.rentalLine}\n\nWe also supply surveyors and survey teams on daily, weekly, monthly or yearly basis.`,
+      text: `We deliver survey engineering with our own full-time crews and instruments — land survey, laser scanning, drone mapping, tunnel and track work.\n\nTell us your project and we will share a quotation.`,
       links: [
-        { label: 'Rental services', href: '/rental' },
+        { label: 'View services', href: '/services' },
         { label: 'Get quotation', href: '/quotation' },
       ],
     }
@@ -147,7 +145,7 @@ function replyFor(input: string, optionId?: string): Message {
   return {
     id,
     role: 'bot',
-    text: `I can help with services, contact details, office address, rental, or WhatsApp. Pick a quick option below or ask another question.`,
+    text: `I can help with services, contact details, office address, or WhatsApp. Pick a quick option below or ask another question.`,
     links: [
       { label: 'Services', href: '/services' },
       { label: 'Contact', href: '/contact' },
@@ -168,8 +166,11 @@ function MessageBubble({ msg }: { msg: Message }) {
         <img src="/logo-brand.png" alt="" className="chat-avatar" />
       ) : null}
       <div className={`chat-bubble ${msg.role === 'user' ? 'is-user' : 'is-bot'}`}>
-        <p>{msg.text}</p>
-        {msg.links && msg.links.length > 0 ? (
+        <p>
+          {msg.text}
+          {msg.typing ? <span className="chat-caret" aria-hidden /> : null}
+        </p>
+        {msg.links && msg.links.length > 0 && !msg.typing ? (
           <div className="chat-bubble-links">
             {msg.links.map((link) =>
               link.external ? (
@@ -189,19 +190,52 @@ function MessageBubble({ msg }: { msg: Message }) {
   )
 }
 
+function ThinkingBubble() {
+  return (
+    <div className="chat-row is-bot">
+      <img src="/logo-brand.png" alt="" className="chat-avatar" />
+      <div className="chat-bubble is-bot chat-thinking" aria-live="polite" aria-label="Assistant is typing">
+        <span className="chat-dots" aria-hidden>
+          <i />
+          <i />
+          <i />
+        </span>
+      </div>
+    </div>
+  )
+}
+
 export function ChatWidgets() {
   const [open, setOpen] = useState(false)
   const [input, setInput] = useState('')
   const [messages, setMessages] = useState<Message[]>([welcome])
+  const [thinking, setThinking] = useState(false)
+  const [busy, setBusy] = useState(false)
   const listRef = useRef<HTMLDivElement>(null)
+  const timers = useRef<number[]>([])
+
+  const clearTimers = () => {
+    for (const id of timers.current) window.clearTimeout(id)
+    timers.current = []
+  }
+
+  const later = (fn: () => void, ms: number) => {
+    const id = window.setTimeout(fn, ms)
+    timers.current.push(id)
+    return id
+  }
+
+  useEffect(() => () => clearTimers(), [])
 
   useEffect(() => {
     if (!open) return
     const el = listRef.current
     if (el) el.scrollTop = el.scrollHeight
-  }, [messages, open])
+  }, [messages, thinking, open])
 
   const send = (text: string, optionId?: string) => {
+    if (busy) return
+
     const label =
       optionId != null ? quickOptions.find((o) => o.id === optionId)?.label ?? text : text
     const userMsg: Message = {
@@ -210,13 +244,48 @@ export function ChatWidgets() {
       text: label,
     }
     const botMsg = replyFor(text, optionId)
-    setMessages((prev) => [...prev, userMsg, botMsg])
+
+    setBusy(true)
+    setThinking(true)
+    setMessages((prev) => [...prev, userMsg])
+
+    later(() => {
+      setThinking(false)
+      setMessages((prev) => [...prev, { ...botMsg, text: '', links: undefined, typing: true }])
+
+      const full = botMsg.text
+      const chunk = full.length > 220 ? 4 : full.length > 90 ? 3 : 2
+      let i = 0
+
+      const tick = () => {
+        i = Math.min(full.length, i + chunk)
+        setMessages((prev) =>
+          prev.map((msg) => (msg.id === botMsg.id ? { ...msg, text: full.slice(0, i) } : msg)),
+        )
+
+        if (i < full.length) {
+          later(tick, 16)
+          return
+        }
+
+        later(() => {
+          setMessages((prev) =>
+            prev.map((msg) =>
+              msg.id === botMsg.id ? { ...botMsg, typing: false } : msg,
+            ),
+          )
+          setBusy(false)
+        }, 80)
+      }
+
+      later(tick, 30)
+    }, 650)
   }
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault()
     const value = input.trim()
-    if (!value) return
+    if (!value || busy) return
     setInput('')
     send(value)
   }
@@ -290,12 +359,18 @@ export function ChatWidgets() {
               {messages.map((msg) => (
                 <MessageBubble key={msg.id} msg={msg} />
               ))}
+              {thinking ? <ThinkingBubble /> : null}
             </div>
 
             <div className="chatbot-footer">
               <div className="chatbot-quick">
                 {quickOptions.map((opt) => (
-                  <button key={opt.id} type="button" onClick={() => send('', opt.id)}>
+                  <button
+                    key={opt.id}
+                    type="button"
+                    disabled={busy}
+                    onClick={() => send('', opt.id)}
+                  >
                     {opt.label}
                   </button>
                 ))}
@@ -307,8 +382,9 @@ export function ChatWidgets() {
                   onChange={(e) => setInput(e.target.value)}
                   placeholder="Ask about services, quotation, contact..."
                   aria-label="Chat message"
+                  disabled={busy}
                 />
-                <button type="submit" disabled={!input.trim()} aria-label="Send message">
+                <button type="submit" disabled={busy || !input.trim()} aria-label="Send message">
                   <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden>
                     <path
                       d="M4 12h14M13 6l6 6-6 6"

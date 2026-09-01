@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Hero } from '../components/Hero'
+import { ScrollBridge } from '../components/ScrollBridge'
 import { CylinderGallery } from '../components/CylinderGallery'
 import { Spotlight } from '../components/Spotlight'
 import { SectorsStrip } from '../components/SectorsStrip'
@@ -9,6 +10,7 @@ import { HomeCases } from '../components/HomeCases'
 import { Values } from '../components/Values'
 import { CtaBand } from '../components/CtaBand'
 import { FadeIn, ImageReveal } from '../components/FadeIn'
+import { Img } from '../components/Img'
 import { aboutLong, site } from '../data/content'
 import { siteImages } from '../data/siteImages'
 
@@ -16,6 +18,7 @@ export function HomePage() {
   return (
     <div className="home-page">
       <Hero />
+      <ScrollBridge />
       <CylinderGallery />
       <Spotlight />
       <SectorsStrip />
@@ -24,7 +27,11 @@ export function HomePage() {
         <div className="spotlight-grid">
           <ImageReveal className="spotlight-cell">
             <div className="spotlight-visual">
-              <img src={siteImages.promise.src} alt={siteImages.promise.alt} />
+              <Img
+                src={siteImages.promise.src}
+                alt={siteImages.promise.alt}
+                sizes="(min-width: 900px) 50vw, 100vw"
+              />
             </div>
           </ImageReveal>
           <FadeIn delay={0.15} className="spotlight-cell">

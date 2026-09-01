@@ -3,6 +3,9 @@ import { useId, useMemo, useState } from 'react'
 import type { ChangeEvent, FormEvent } from 'react'
 import { FadeIn } from './FadeIn'
 import { quotationRoles, quotationServices, site } from '../data/content'
+import { leadMailtoUrl, leadWhatsappUrl, submitLead } from '../lib/leads'
+import type { LeadPayload } from '../lib/leads'
+import { trackEvent } from '../lib/analytics'
 
 type FormState = {
   name: string
@@ -28,11 +31,14 @@ const initial: FormState = {
   requirements: '',
 }
 
+type Status = 'idle' | 'sending' | 'sent' | 'fallback' | 'error'
+
 export function QuotationForm() {
   const uid = useId()
   const [form, setForm] = useState<FormState>(initial)
   const [error, setError] = useState('')
-  const [submitted, setSubmitted] = useState(false)
+  const [status, setStatus] = useState<Status>('idle')
+  const [payload, setPayload] = useState<LeadPayload | null>(null)
 
   const progress = useMemo(() => {
     const checks = [
@@ -77,7 +83,7 @@ export function QuotationForm() {
     setForm((prev) => ({ ...prev, [name]: value }))
   }
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     if (form.selectedServices.length === 0) {
@@ -92,30 +98,37 @@ export function QuotationForm() {
 
     setError('')
 
-    const mailSubject = encodeURIComponent(
-      form.subject || `Quotation request — ${form.projectName || form.name}`,
-    )
-    const body = encodeURIComponent(
-      [
-        `Name: ${form.name}`,
-        `Company Name: ${form.companyName}`,
-        `Email: ${form.email}`,
-        `Contact Number: ${form.contactNumber}`,
-        `Subject: ${form.subject}`,
-        `Project Name: ${form.projectName}`,
-        `Role: ${form.role}`,
-        `Selected Services:\n${form.selectedServices.map((s) => `• ${s}`).join('\n')}`,
-        '',
-        `Requirements:\n${form.requirements}`,
-      ].join('\n'),
-    )
+    const lead: LeadPayload = {
+      formName: 'Quotation request',
+      subject: form.subject || `Quotation request — ${form.projectName || form.name}`,
+      fields: [
+        { label: 'Name', value: form.name },
+        { label: 'Company Name', value: form.companyName },
+        { label: 'Email', value: form.email },
+        { label: 'Contact Number', value: form.contactNumber },
+        { label: 'Subject', value: form.subject },
+        { label: 'Project Name', value: form.projectName },
+        { label: 'Role', value: form.role },
+        { label: 'Selected Services', value: form.selectedServices.join(', ') },
+        { label: 'Requirements', value: form.requirements },
+      ],
+    }
 
-    window.location.href = `mailto:${site.email}?subject=${mailSubject}&body=${body}`
-    setSubmitted(true)
-    window.scrollTo(0, 0)
+    setPayload(lead)
+    setStatus('sending')
+
+    try {
+      const result = await submitLead(lead)
+      setStatus(result === 'sent' ? 'sent' : 'fallback')
+      trackEvent('generate_lead', { form: 'quotation', delivery: result })
+      if (result === 'sent') window.scrollTo(0, 0)
+    } catch {
+      setStatus('error')
+      trackEvent('form_error', { form: 'quotation' })
+    }
   }
 
-  if (submitted) {
+  if (status === 'sent') {
     return (
       <FadeIn>
         <div className="quotation-thanks">
@@ -123,10 +136,10 @@ export function QuotationForm() {
             ✓
           </div>
           <h2>Thank You!</h2>
-          <p>Your request has been submitted successfully.</p>
+          <p>Your request has reached our team.</p>
           <p className="quotation-thanks-note">
-            If your email app did not open, please write to{' '}
-            <a href={`mailto:${site.email}`}>{site.email}</a>.
+            We typically reply within one business day. For anything urgent, call{' '}
+            <a href={`tel:${site.phones[0].tel}`}>{site.phones[0].display}</a>.
           </p>
           <div className="quotation-thanks-actions">
             <Link to="/" className="btn btn-ink">
@@ -329,9 +342,55 @@ export function QuotationForm() {
           </div>
         </div>
 
+        {status === 'fallback' && payload ? (
+          <div className="form-notice" role="status">
+            <p>
+              Your request is ready to send. Choose how you would like to reach us —
+              WhatsApp gets the fastest reply.
+            </p>
+            <div className="form-notice-actions">
+              <a
+                className="btn btn-primary"
+                href={leadWhatsappUrl(payload)}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => trackEvent('whatsapp_click', { source: 'quotation_fallback' })}
+              >
+                Send on WhatsApp
+              </a>
+              <a className="btn btn-outline" href={leadMailtoUrl(payload)}>
+                Send by email
+              </a>
+            </div>
+          </div>
+        ) : null}
+
+        {status === 'error' && payload ? (
+          <div className="form-notice is-error" role="alert">
+            <p>
+              We could not submit the form just now. Please send it on WhatsApp or
+              write to <a href={`mailto:${site.email}`}>{site.email}</a>.
+            </p>
+            <div className="form-notice-actions">
+              <a
+                className="btn btn-primary"
+                href={leadWhatsappUrl(payload)}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Send on WhatsApp
+              </a>
+            </div>
+          </div>
+        ) : null}
+
         <div className="quotation-form-actions">
-          <button type="submit" className="btn btn-ink quotation-submit">
-            Submit quotation request
+          <button
+            type="submit"
+            className="btn btn-ink quotation-submit"
+            disabled={status === 'sending'}
+          >
+            {status === 'sending' ? 'Submitting…' : 'Submit quotation request'}
           </button>
           <p>We typically reply within one business day.</p>
         </div>

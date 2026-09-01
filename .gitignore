@@ -12,6 +12,14 @@ dist
 dist-ssr
 *.local
 
+.env
+.env.*
+!.env.example
+
+tmp-pdf-images
+tmp-pdf-text.txt
+tmp-shots
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

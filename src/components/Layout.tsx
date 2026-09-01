@@ -1,18 +1,10 @@
-import { useEffect } from 'react'
-import { Outlet, useLocation } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import { Navbar } from './Navbar'
 import { Footer } from './Footer'
-import { DocumentTitle } from './DocumentTitle'
+import { Seo } from './Seo'
 import { ChatWidgets } from './ChatWidgets'
 import { LogoTicker } from './LogoTicker'
-
-function ScrollToTop() {
-  const { pathname } = useLocation()
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [pathname])
-  return null
-}
+import { SmoothScroll } from './SmoothScroll'
 
 export function Layout() {
   return (
@@ -20,8 +12,8 @@ export function Layout() {
       <a href="#main-content" className="skip-link">
         Skip to content
       </a>
-      <ScrollToTop />
-      <DocumentTitle />
+      <SmoothScroll />
+      <Seo />
       <Navbar />
       <main id="main-content">
         <Outlet />

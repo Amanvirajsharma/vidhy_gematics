@@ -8,7 +8,7 @@ export function ServicesPage() {
       <PageBanner
         label="Services"
         title="Want to see what services we provide?"
-        lead="View for details — land survey, laser scanning, as-built, drone mapping, geotechnical, tunnel and track surveying."
+        lead="Engineering, survey engineering, construction support and geotechnical investigation — delivered with international-standard accuracy."
       />
       <Services />
       <CtaBand />

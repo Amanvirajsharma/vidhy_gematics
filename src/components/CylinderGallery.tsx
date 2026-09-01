@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useReducedMotion } from 'framer-motion'
 import { siteImages } from '../data/siteImages'
+import { Img } from './Img'
 
 const slides = [
   { title: 'Land Surveying and Mapping', short: 'Land Survey', image: siteImages.services[0] },
@@ -40,11 +41,11 @@ export function CylinderGallery() {
                       aria-label={`${slide.title} service details`}
                       tabIndex={group === 1 ? -1 : 0}
                     >
-                      <img
+                      <Img
                         src={slide.image.src}
                         alt={slide.image.alt}
+                        sizes="(min-width: 900px) 30vw, 70vw"
                         loading={group === 0 && i < 2 ? 'eager' : 'lazy'}
-                        decoding="async"
                       />
                       <span className="cyl-card-shade" />
                       <span className="cyl-card-label">{slide.short}</span>

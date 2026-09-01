@@ -41,10 +41,6 @@ export const heroSlides = [
     word: 'Quality',
     quote: 'Exceeding Expectations, Building the Future',
   },
-  {
-    word: 'Precision',
-    quote: 'Mapping the Future, Building the Present',
-  },
 ]
 
 export const aboutShort =
@@ -56,6 +52,9 @@ export const aboutLong = [
   'Today VIDYA GEOMATICS SOLUTION is one of the leading organizations in the field of Land Surveying, Underground Surveying, 3D Laser Scanning Surveying, GIS as well as Geographic Surveys which has International Standard and Quality. We have achieved a solid reputation for providing conscientious and reliable engineering survey solutions to a wide range of infrastructure, construction and development projects for Clients, Government Sectors, Consultants & Constructions Companies in India. With more than 6 years of experience.',
 ]
 
+export const missionIntro =
+  'Gaining customer satisfaction by delivering high quality products and services.'
+
 export const mission =
   "VIDYA GEOMATICS SOLUTION aims to become the customers' most preferred choice by achieving excellence in quality and delivering value-added projects on time. The company is committed to providing the highest level of service in the construction industry, offering superior craftsmanship in every project it undertakes."
 
@@ -64,20 +63,24 @@ export const vision =
 
 export const values = [
   {
-    title: 'Great services',
-    text: 'You can rely on our commitment to delivering top-quality work, on time, and within budget.',
-  },
-  {
     title: 'Honesty, Integrity and Trust',
     text: 'This is integral to every practice and decision in the business. Our reputation depends on it.',
   },
   {
-    title: 'Professionals Approach',
-    text: 'We operate worldwide and our access to skilled and specialist resource allows us to respond effectively no matter the size of the project or how challenging.',
+    title: 'Client Orientation',
+    text: 'Developing great relationships with our clients is key to our success. We work closely with our clients so we can fully understand and respond to their individual needs.',
+  },
+  {
+    title: 'Quality',
+    text: 'We are committed to quality at every level of the business. There is no compromise on this, and we continually invest in technology, staff development and health and safety to achieve the highest standard of service.',
   },
   {
     title: 'Innovation',
     text: 'Our innovation is what sets us apart, whether we are offering a unique product or challenging our methodology to become more effective.',
+  },
+  {
+    title: 'Professional Approach',
+    text: 'We operate worldwide and our access to skilled and specialist resource allows us to respond effectively no matter the size of the project or how challenging.',
   },
 ]
 
@@ -141,139 +144,371 @@ export const teamUnits = [
 ]
 
 export const stats = [
-  { value: '2019', label: 'Established' },
-  { value: '6+', label: 'Years Experience' },
-  { value: '7', label: 'Core Survey Services' },
-  { value: '10+', label: 'Industry Clients' },
+  { value: '50+', label: 'Projects Completed' },
+  { value: '85,000+', label: 'Hectare Area Mapped' },
+  { value: '6,000+', label: 'Drone Flying Hours' },
+  { value: '6+', label: 'Years of Experience' },
 ]
 
-export const services = [
+export const progress = [
+  { value: '50+', label: 'Projects Completed' },
+  { value: '85,000+', label: 'Hectare Area Mapped' },
+  { value: '6,000+', label: 'Flying Hours' },
+  { value: '25,000', label: 'Data Collected' },
+]
+
+export const workSamples = [
   {
-    title: 'Land Surveying and Mapping',
-    summary:
-      'VGS employs a dedicated team of professionals for land surveying and mapping. VGS leverages advanced GIS and CAD mapping software, such as AutoCAD and CIVIL 3D, to extract and process detailed features efficiently.',
+    src: '/work/drone-mapping-output.jpg',
+    alt: 'Drone survey processed into contours and a digital elevation model',
+    title: 'Mine and quarry volume mapping',
+    text: 'RTK drone imagery processed into contours, a digital elevation model and an orthomosaic for volume computation.',
+    service: 'Aerial / Drone Mapping',
+  },
+  {
+    src: '/work/drone-3d-model.jpg',
+    alt: 'Textured 3D photogrammetric model of a steel bridge structure',
+    title: 'Structure photogrammetry',
+    text: 'Centimetre-accurate 3D model of a bridge structure built from RTK drone imagery with ground control.',
+    service: 'Aerial / Drone Mapping',
+  },
+  {
+    src: '/work/geotechnical-drilling.jpg',
+    alt: 'Geotechnical drilling rig operating at a rocky project site',
+    title: 'Geotechnical investigation',
+    text: 'Boring services from 30 to 100 metres depth, carried out in remote terrain with client-specific reporting.',
+    service: 'Geo Technical Investigation',
+  },
+  {
+    src: '/work/soil-core-samples.jpg',
+    alt: 'Labelled soil and rock core samples in core boxes',
+    title: 'Core logging and testing',
+    text: 'Recovered cores logged and routed to chemical, physical and mechanical testing for foundation design.',
+    service: 'Geo Technical Investigation',
+  },
+]
+
+export const equipmentGroups = [
+  {
+    title: 'Total stations & levels',
     items: [
-      'Topographical Surveys',
-      'Demarcation / Plot Boundary Marking',
-      'Establishing benchmarks and control points',
-      'Setting out pile foundations',
-      'OGL (Original Ground Level) Survey',
-      'Pile As-Built surveys',
-      'Column and footing marking',
-      'Grid line marking',
-      'As-Built surveys of existing structures and during construction stages',
-      'Verticality checking',
-      'Comprehensive construction-related survey services',
+      'Leica robotic and manual total stations',
+      'Leica digital levels and auto levels',
+      'Track Master for rail geometry measurement',
     ],
   },
   {
-    title: '3D Laser Scanning Services',
-    summary:
-      'Vidya Geomatics Solution (VGS) employs a full-time professional staff and utilizes cutting-edge 3D laser scanning technology to accurately capture the shape of objects using laser light, creating precise 3D models of geographic features.',
+    title: 'GNSS & positioning',
     items: [
-      'Industrial Applications',
-      'Volume Calculations',
-      'Infrastructure Applications',
-      'Architecture Applications',
-      'Archaeological/Heritage',
-      'Energy',
-      'Registered Point Cloud',
-      '3D CAD Models',
-      '3D Mesh Models',
-      'BIM Models',
-      '2D CAD Documentation',
-      'Plant Design Models',
-      'Orthophotos',
-      'Deformation Surveys',
-      'Volume Survey',
-      'Clash Detection',
-      '3D Virtual Reality',
-      'Panoramic Images',
-      'Leica TruView',
+      'GNSS RTK rovers with field controllers',
+      'DGPS receivers for control networks',
+      'Benchmark and control point establishment kits',
     ],
   },
   {
-    title: 'As-Built Survey',
-    summary:
-      'Vidya Geomatics Solution (VGS) employs a full-time professional staff skilled in 3D laser scanning and As-Built Total Station technology to accurately capture geographic features and monitor project progress through 2D and 3D models.',
+    title: '3D laser scanning',
     items: [
-      'As-Built Survey of Existing Buildings',
-      'Produce Floor Plan Drawings',
-      'Produce Sectional Drawings',
-      'Produce Elevation Drawings',
-      'Produce Cloud Points',
-      'Produce 3D Model of the Building',
-      'BIM Modeling',
-      'AutoCAD Modeling',
+      'Leica 3D laser scanners with field tablet',
+      'Registered point cloud processing',
+      'Leica TruView publishing and panoramic imagery',
     ],
   },
   {
-    title: 'Aerial / Drone Mapping',
-    summary:
-      "DJI's advanced drone technology, including the Phantom 4 RTK, delivers centimeter-accurate data with fewer ground control points. The drones achieve 1cm+1ppm RTK horizontal positioning accuracy, 1.5cm+1ppm RTK vertical positioning accuracy, and a 5cm absolute horizontal accuracy of photogrammetric models.",
+    title: 'UAV / drone fleet',
+    items: ['DJI RTK 300', 'DJI Mavic 3 Enterprise', 'DJI Phantom 4 RTK'],
+  },
+  {
+    title: 'Geotechnical',
     items: [
-      'Construction Update Survey',
-      'Mining & Aggregates',
-      'Solar Energy',
-      'Infrastructure Inspection',
-      'Roofing Inspection',
-      'Agriculture Inspections',
-      'Urban Planning & Land Management',
-      'Archaeology',
-      'Land Survey',
+      'Boring rigs reaching 30 to 100 metres depth',
+      'Core sampling, logging and preservation',
+      'Field, chemical and mechanical testing support',
     ],
   },
   {
-    title: 'Geo Technical Investigation',
-    summary:
-      'VGS ensures the highest standards by utilizing the latest, most advanced field equipment and processing data with the industry\'s most powerful modeling software.',
+    title: 'Software',
     items: [
-      'Geotechnical Investigation (Onshore/Offshore)',
-      'Chemical & Biological Laboratory',
-      'Physical & Mechanical Testing',
-      'Nondestructive Testing Services',
-      'Environmental Testing',
-      'Geophysical testing',
-      'Evaluation of the Existing Structures',
-      'Geological Mapping',
-      'Special Test Services',
-      'Oil Spill Monitoring',
-    ],
-  },
-  {
-    title: 'Tunnel Survey',
-    summary:
-      'VGS employs a full-time professional staff for tunnel surveying. VGS utilizes advanced software such as NRG, TBC, and Amberg tunneling software to deliver these services efficiently.',
-    items: [
-      'Precise Alignment Control',
-      'Base Network Establishment',
-      'Support for Tunnel Boring Machine (TBM)',
-      'Deformation Monitoring',
-      'Cross-Sectional Measurements',
-      'Laser Scanning',
-      'Traverse and Triangulation',
-      'Staking Out and Setting Out',
-      'Integration with BIM',
-    ],
-  },
-  {
-    title: 'Track Surveying',
-    summary:
-      'VGS employs a full-time professional staff to provide a comprehensive range of track surveying services. These include total station, Digital Level and Track Master. VGS utilizes advanced software such as NRG, TBC, and Amberg Leica software.',
-    items: [
-      'Alignment and Geometry Control',
-      'Establishing Control Points',
-      'Track Centerline Staking',
-      'Vertical and Horizontal Curve Measurement',
-      'Rail Gauge Verification',
-      'Super-Elevation and Cant Measurement',
-      'Trackbed Leveling and Grading',
-      'Switches and Crossings Turnout',
-      'Deformation and Settlement Monitoring',
-      'Final As-Built Survey',
+      'AutoCAD, Civil 3D and ArcGIS',
+      'Trimble Business Center (TBC)',
+      'NRG survey software',
+      'Amberg tunnelling and Amberg Leica rail software',
     ],
   },
 ]
+
+export const healthSafety = {
+  intro:
+    'Vidya Geomatics Solution is deeply committed to health and safety. Our policies and procedures are designed to protect our staff, contractors, and the public at all times.',
+  heading: 'Our OH&S system includes',
+  items: [
+    'Occupational Health and Safety Policy',
+    'Comprehensive induction for all new employees',
+    'Detailed Occupational Health and Safety procedures',
+    'Accident and incident reporting and monitoring',
+    'Safety inspections',
+    'Monthly staff meetings',
+    'Safe Work Method Statements (SWMS) for fieldwork',
+    'Online induction programme for new employees, with yearly refreshers',
+  ],
+}
+
+export const companyProfilePdf = '/vidya-geomatics-company-profile.pdf'
+
+export const leadership = {
+  name: 'Sumit Kumar Bidua',
+  role: 'Business Head',
+  email: 'sumit@vidyageomatics.com',
+}
+
+export type ServiceOffering = {
+  title: string
+  summary: string
+  items: string[]
+}
+
+export type ServiceCategory = {
+  title: string
+  summary: string
+  subServices: ServiceOffering[]
+}
+
+export const serviceCategories: ServiceCategory[] = [
+  {
+    title: 'Engineering',
+    summary:
+      'Integrated engineering design and digital delivery — from concept drawings and spatial analysis to BIM coordination and GIS-ready datasets for infrastructure, industrial and development projects.',
+    subServices: [
+      {
+        title: 'Designing',
+        summary:
+          'Our design team prepares accurate engineering drawings and layouts for survey-led projects, supporting planners, consultants and contractors with clear, standards-compliant documentation.',
+        items: [
+          'Concept and preliminary engineering layouts',
+          'Detailed plan, section and elevation drawings',
+          'Road, drainage and utility corridor design support',
+          'Structural and site layout drawings',
+          'Drawing revision and as-designed updates',
+          'CAD standards and layer management (AutoCAD / Civil 3D)',
+          'Quantity take-off and BOQ support drawings',
+          'Coordination with survey and geotechnical inputs',
+        ],
+      },
+      {
+        title: 'BIM',
+        summary:
+          'We build and maintain BIM-ready models from field survey, laser scan and as-built data — helping teams visualise, coordinate and hand over projects with confidence.',
+        items: [
+          'BIM modelling from point cloud and survey data',
+          'As-built BIM for existing buildings and plants',
+          'LOD 200–400 model development',
+          'Clash detection and coordination reviews',
+          'Revit / Civil 3D / plant design model support',
+          '4D progress and construction sequencing support',
+          'BIM deliverables for handover and FM',
+          'Integration with tunnel, rail and infrastructure projects',
+        ],
+      },
+      {
+        title: 'GIS',
+        summary:
+          'Spatial data management, mapping and analysis using ArcGIS and CAD workflows — turning survey observations into actionable geographic information.',
+        items: [
+          'GIS database creation and maintenance',
+          'Topographic and thematic mapping',
+          'Parcel, land-use and boundary mapping',
+          'Raster-to-vector conversion',
+          'Ortho photo and satellite image processing',
+          'Spatial analysis and overlay studies',
+          'Web GIS and map publishing support',
+          'Integration with drone and mobile mapping outputs',
+        ],
+      },
+    ],
+  },
+  {
+    title: 'Survey Engineering',
+    summary:
+      'Full-time professional crews delivering land, underground, laser, drone, tunnel and track survey services with international-standard accuracy — using Leica, Trimble, DJI RTK and industry software.',
+    subServices: [
+      {
+        title: 'Land Surveying and Mapping',
+        summary:
+          'Boundary and topographic surveys, construction stake-out and monitoring using Total Station, DGPS, Digital Level and Auto Level — processed in AutoCAD, Civil 3D and ArcGIS.',
+        items: [
+          'Topographical surveys',
+          'Demarcation / plot boundary marking',
+          'Benchmark and control point establishment',
+          'Excavation quantity calculations',
+          'Pile foundation setting out',
+          'OGL (Original Ground Level) survey',
+          'Pile as-built and grid line marking',
+          'As-built surveys during construction',
+          'Verticality checking',
+        ],
+      },
+      {
+        title: '3D Laser Scanning',
+        summary:
+          'High-definition laser scanning to capture precise 3D geometry for industrial plants, infrastructure, heritage structures and deformation monitoring.',
+        items: [
+          'Registered point clouds',
+          '3D CAD and mesh models',
+          'BIM-ready scan data',
+          'Industrial and plant applications',
+          'Volume and deformation surveys',
+          'Clash detection support',
+          'Panoramic images and Leica TruView',
+          '2D CAD documentation from scans',
+        ],
+      },
+      {
+        title: 'As-Built Survey',
+        summary:
+          'Accurate capture of existing buildings and structures using laser scanning and total station technology for renovation, compliance and project monitoring.',
+        items: [
+          'Floor plan, section and elevation drawings',
+          'Point cloud and 3D building models',
+          'BIM and AutoCAD modelling',
+          'Progress monitoring through 2D/3D models',
+          'MEP and structural as-built capture',
+        ],
+      },
+      {
+        title: 'Aerial / Drone Mapping',
+        summary:
+          'RTK drone fleet (DJI RTK 300, Mavic 3 Enterprise, Phantom 4 RTK) for centimetre-accurate photogrammetry, orthomosaics and volumetric analysis.',
+        items: [
+          'Construction progress updates',
+          'Mining and stockpile volumes',
+          'Solar and infrastructure inspection',
+          'Urban planning and land management',
+          'Orthomosaic and DSM/DEM production',
+          'Ground control and checkpoint surveys',
+        ],
+      },
+      {
+        title: 'Tunnel Survey',
+        summary:
+          'Tunnel profiling, alignment control and deformation monitoring using NRG, TBC and Amberg tunnelling software.',
+        items: [
+          'Precise alignment control',
+          'TBM support surveys',
+          'Cross-sectional measurements',
+          'Wriggle survey and as-built reporting',
+          'Laser scanning inside tunnels',
+          'Integration with BIM',
+        ],
+      },
+      {
+        title: 'Track Surveying',
+        summary:
+          'Rail geometry, alignment and as-built surveys using total station, digital level and Track Master with NRG, TBC and Amberg Leica software.',
+        items: [
+          'Track centerline staking',
+          'Rail gauge and cant verification',
+          'Vertical and horizontal curve measurement',
+          'Switches, crossings and turnout surveys',
+          'Deformation and settlement monitoring',
+          'Final as-built rail surveys',
+        ],
+      },
+    ],
+  },
+  {
+    title: 'Construction',
+    summary:
+      'Survey-led construction support from site establishment through monitoring and handover — helping contractors build to design with confidence.',
+    subServices: [
+      {
+        title: 'Site Establishment & Layout',
+        summary:
+          'Setting out and control for greenfield and brownfield sites before and during construction.',
+        items: [
+          'Site benchmark and control network',
+          'Grid line and building corner setting out',
+          'Pile, column and footing marking',
+          'Road, pipeline and utility corridor layout',
+          'Gate level fixing and computation',
+          'Excavation and cut/fill marking',
+        ],
+      },
+      {
+        title: 'Construction Monitoring',
+        summary:
+          'Regular survey updates to track progress, verify dimensions and support quantity reconciliation on active projects.',
+        items: [
+          'Weekly / monthly construction update surveys',
+          'Verticality and alignment checks',
+          'Pile and foundation as-built surveys',
+          'Stockpile and borrow-pit volume surveys',
+          'Settlement and deformation monitoring',
+          'Progress reporting with CAD/GIS deliverables',
+        ],
+      },
+      {
+        title: 'Infrastructure & Industrial',
+        summary:
+          'Specialist survey support for highways, railways, plants, bridges and large civil works.',
+        items: [
+          'Highway and bridge setting out',
+          'Rail and metro corridor surveys',
+          'Plant and pipeline as-built',
+          'Dilapidation and pre-construction surveys',
+          'Underground utility detection surveys',
+          'Dimension control for precast and steel erection',
+        ],
+      },
+    ],
+  },
+  {
+    title: 'Geotechnical Engineering',
+    summary:
+      'Geotechnical investigation and testing from 30 to 100 metres depth — fieldwork in remote terrain with laboratory analysis and foundation design support.',
+    subServices: [
+      {
+        title: 'Site Investigation',
+        summary:
+          'Onshore boring, sampling and in-situ testing with client-specific reporting for foundations, slopes and retaining structures.',
+        items: [
+          'Geotechnical investigation (onshore/offshore)',
+          'Boring up to 30–100 metres depth',
+          'Standard penetration and cone penetration tests',
+          'Core recovery, logging and preservation',
+          'Geological mapping and geophysical testing',
+          'Groundwater monitoring',
+        ],
+      },
+      {
+        title: 'Laboratory & Testing',
+        summary:
+          'Chemical, physical and mechanical testing to Indian and international standards for soil, rock and construction materials.',
+        items: [
+          'Soil classification and index properties',
+          'Compaction and CBR tests',
+          'Chemical and environmental testing',
+          'Rock and aggregate testing',
+          'Non-destructive testing of structures',
+          'Evaluation of existing foundations',
+        ],
+      },
+      {
+        title: 'Reporting & Design Support',
+        summary:
+          'Interpretation of field and lab data into actionable recommendations for consultants and design engineers.',
+        items: [
+          'Geotechnical investigation reports',
+          'Bearing capacity and settlement analysis',
+          'Slope stability recommendations',
+          'Foundation type selection support',
+          'Special test services and oil spill monitoring',
+        ],
+      },
+    ],
+  },
+]
+
+/** Flat list used by legacy components (featured work, chatbot, etc.) */
+export const services = serviceCategories.flatMap((category) => category.subServices)
 
 export const rental = {
   title: 'Rental Services',
@@ -290,6 +525,18 @@ export const rental = {
 }
 
 export const quotationServices = [
+  'Engineering — Designing',
+  'Engineering — BIM',
+  'Engineering — GIS',
+  'Land Surveying and Mapping',
+  '3D Laser Scanning',
+  'As-Built Survey',
+  'Aerial / Drone Mapping',
+  'Tunnel Survey',
+  'Track Surveying',
+  'Construction — Site Layout',
+  'Construction — Monitoring',
+  'Geotechnical Investigation',
   'Topographical Survey',
   'Mobile Mapping Services',
   'Construction Survey Services',
@@ -302,16 +549,9 @@ export const quotationServices = [
   'Reverse Engineering Services',
   'Dilapidation Survey',
   'Bathymetric Survey',
-  'Aerial / Drone Related Services',
-  '3D Laser Scanning Requirements',
-  'Trakhees/Nakheel/DDA Services',
-  'As-Built Survey Services',
   'Underground Utility Surveys',
   'Dimension Control Survey Services',
-  'Hire Survey Team on Daily/Weekly/Monthly Basis',
   'Concrete Scanning & Drilling Services',
-  'Rental of Survey Equipment',
-  'Purchase of Brand New Equipment',
   'Soil Investigation Services',
   'Others',
 ]
@@ -325,16 +565,16 @@ export const quotationRoles = [
 ]
 
 export const clients = [
-  { name: 'Indian Oil', logo: '/clients/indian-oil.png' },
-  { name: 'Amberg', logo: '/clients/amberg.png' },
-  { name: 'L&T', logo: '/clients/L-T.png' },
+  { name: 'IndianOil', logo: '/clients/indian-oil.png' },
+  { name: 'Amberg Engineering', logo: '/clients/amberg.png' },
+  { name: 'Larsen & Toubro', logo: '/clients/L-T.png' },
   { name: 'Vedanta', logo: '/clients/vedanta.png' },
-  { name: 'Railway', logo: '/clients/railway.png' },
-  { name: 'NVDA', logo: '/clients/nvda.png' },
-  { name: 'Ashoka', logo: '/clients/ashoka.png' },
-  { name: 'Pacific', logo: '/clients/pacific.png' },
+  { name: 'Indian Railways', logo: '/clients/railway.png' },
+  { name: 'Narmada Valley Development Authority', logo: '/clients/nvda.png' },
+  { name: 'Ashoka Buildcon Ltd.', logo: '/clients/ashoka.png' },
+  { name: 'Pacific Industries Ltd.', logo: '/clients/pacific.png' },
   { name: 'Patel', logo: '/clients/patel.png' },
-  { name: 'CDS', logo: '/clients/cds.png' },
+  { name: 'CDS Infra Projects Ltd.', logo: '/clients/cds.png' },
 ]
 
 export const clientsHeading = 'Partnering with industry leaders to deliver excellence, innovation'

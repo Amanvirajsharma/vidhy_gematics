@@ -2,7 +2,7 @@ import { PageBanner } from '../components/PageBanner'
 import { Values } from '../components/Values'
 import { FadeIn } from '../components/FadeIn'
 import { CtaBand } from '../components/CtaBand'
-import { site, whyChoosePoints } from '../data/content'
+import { healthSafety, site, whyChoosePoints } from '../data/content'
 
 export function WhyChooseUsPage() {
   return (
@@ -48,6 +48,30 @@ export function WhyChooseUsPage() {
       </section>
 
       <Values />
+
+      <section className="section health-safety">
+        <div className="container">
+          <FadeIn>
+            <p className="section-label">Health & safety</p>
+            <h2 className="section-title">Everyone goes home safe</h2>
+            <div className="accent-line" aria-hidden />
+            <p className="section-lead">{healthSafety.intro}</p>
+            <h3 className="health-safety-heading">{healthSafety.heading}</h3>
+          </FadeIn>
+
+          <div className="health-safety-grid">
+            {healthSafety.items.map((item, i) => (
+              <FadeIn key={item} delay={(i % 4) * 0.05}>
+                <div className="health-safety-item">
+                  <span aria-hidden>✓</span>
+                  <p>{item}</p>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <CtaBand />
     </>
   )

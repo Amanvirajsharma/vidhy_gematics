@@ -11,10 +11,6 @@ export const siteImages = {
       src: u('photo-1503387762-592deb58ef4e', 2400),
       alt: 'Building construction and site development',
     },
-    {
-      src: u('photo-1486406146926-c627a92ad1ab', 2400),
-      alt: 'Infrastructure and city construction skyline',
-    },
   ],
   about: {
     src: u('photo-1504307651254-35680f356dfd'),

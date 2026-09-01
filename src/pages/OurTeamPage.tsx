@@ -95,7 +95,7 @@ export function OurTeamPage() {
         </div>
       </section>
 
-      <CtaBand to="/rental" label="Hire survey teams" />
+      <CtaBand to="/quotation" label="Request quotation" />
     </>
   )
 }
