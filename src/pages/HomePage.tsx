@@ -32,16 +32,26 @@ export function HomePage() {
                 alt={siteImages.promise.alt}
                 sizes="(min-width: 900px) 50vw, 100vw"
               />
+              <div className="spotlight-corner-chip">
+                <span className="spotlight-chip-dot" />
+                <span>EXPERIENCE {site.experienceYears} YEARS</span>
+              </div>
             </div>
           </ImageReveal>
           <FadeIn delay={0.15} className="spotlight-cell">
             <div className="spotlight-copy">
+              <span className="section-badge-pill">OUR COMMITMENT</span>
               <p className="section-label">Our Promise</p>
               <h2 className="section-title">{site.name}</h2>
+              <div className="accent-line" aria-hidden />
               <p className="about-quote">“{site.trustedLine}”</p>
               <p className="section-lead">{aboutLong[2]}</p>
-              <Link to="/about" className="text-link">
-                Read more
+              <Link to="/about" className="text-link with-arrow">
+                <span>Read more about our work</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
               </Link>
             </div>
           </FadeIn>
@@ -56,3 +66,4 @@ export function HomePage() {
     </div>
   )
 }
+

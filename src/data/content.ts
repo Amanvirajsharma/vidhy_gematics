@@ -36,12 +36,17 @@ export const heroSlides = [
   {
     word: 'Excellence',
     quote: 'Excellence in Every Detail, Strength in Every Build',
+    leadLines: ['Excellence in', 'Every Detail,'],
+    accent: 'Strength in Every Build',
   },
   {
     word: 'Quality',
     quote: 'Exceeding Expectations, Building the Future',
+    leadLines: ['Exceeding', 'Expectations,'],
+    accent: 'Building the Future',
   },
 ]
+
 
 export const aboutShort =
   'Vidya Geomatics Solutions is a pioneering Survey Engineering Company in India established in the year of 2019 and the most leading Organization in the field of Land Survey, Mobile Mapping solutions, Drone mapping and laser scanning solutions'
